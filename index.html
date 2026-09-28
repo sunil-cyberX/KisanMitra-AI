@@ -1,0 +1,1273 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="theme-color" content="#16a34a">
+<title>KisanMitra AI 2.0</title>
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+
+body{
+  font-family:Arial,Helvetica,sans-serif;
+  background:linear-gradient(135deg,#ecfdf5,#f0fdf4,#dcfce7);
+  color:#17351f;
+  min-height:100vh;
+}
+
+header{
+  position:sticky;
+  top:0;
+  z-index:10;
+  background:rgba(255,255,255,.92);
+  backdrop-filter:blur(12px);
+  border-bottom:1px solid #bbf7d0;
+  padding:14px 5%;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:12px;
+}
+
+.logo{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  font-size:21px;
+  font-weight:800;
+  color:#15803d;
+}
+
+.logo span{
+  font-size:32px;
+}
+
+.header-actions{
+  display:flex;
+  gap:7px;
+  flex-wrap:wrap;
+}
+
+button{
+  border:0;
+  cursor:pointer;
+  font-weight:700;
+}
+
+.small-btn{
+  padding:9px 12px;
+  border-radius:10px;
+  background:#dcfce7;
+  color:#166534;
+}
+
+.small-btn:hover{background:#bbf7d0}
+
+.hero{
+  text-align:center;
+  padding:42px 18px 25px;
+}
+
+.hero h1{
+  font-size:clamp(30px,6vw,52px);
+  color:#166534;
+  margin-bottom:10px;
+}
+
+.hero p{
+  max-width:720px;
+  margin:auto;
+  color:#4b6350;
+  line-height:1.6;
+}
+
+.container{
+  width:min(1100px,94%);
+  margin:auto;
+}
+
+.company{
+  background:rgba(255,255,255,.8);
+  border:1px solid #bbf7d0;
+  border-radius:20px;
+  padding:18px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:15px;
+  flex-wrap:wrap;
+  box-shadow:0 8px 30px rgba(22,101,52,.08);
+  margin-bottom:20px;
+}
+
+.company-info{
+  display:flex;
+  align-items:center;
+  gap:13px;
+}
+
+.company-logo{
+  width:52px;
+  height:52px;
+  border-radius:15px;
+  display:grid;
+  place-items:center;
+  background:#dcfce7;
+  font-size:28px;
+}
+
+.company h3{color:#166534}
+.company p{font-size:13px;color:#64748b;margin-top:4px}
+
+.company-actions{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+}
+
+.action{
+  padding:10px 13px;
+  border-radius:10px;
+  background:#16a34a;
+  color:white;
+}
+
+.action.secondary{
+  background:#dcfce7;
+  color:#166534;
+}
+
+.section-title{
+  margin:28px 0 12px;
+  color:#166534;
+}
+
+.topics{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:12px;
+}
+
+.topic{
+  background:white;
+  border:1px solid #bbf7d0;
+  border-radius:16px;
+  padding:17px 12px;
+  text-align:center;
+  transition:.2s;
+}
+
+.topic:hover{
+  transform:translateY(-3px);
+  box-shadow:0 8px 20px rgba(22,101,52,.1);
+}
+
+.topic-icon{
+  font-size:30px;
+  margin-bottom:8px;
+}
+
+.topic strong{
+  display:block;
+  color:#166534;
+}
+
+.topic small{
+  display:block;
+  color:#64748b;
+  margin-top:4px;
+}
+
+.chat-card{
+  margin:25px 0;
+  background:rgba(255,255,255,.9);
+  border:1px solid #bbf7d0;
+  border-radius:20px;
+  overflow:hidden;
+  box-shadow:0 8px 30px rgba(22,101,52,.08);
+}
+
+.chat-head{
+  background:#166534;
+  color:white;
+  padding:15px 18px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px;
+}
+
+.chat-head small{opacity:.85}
+
+.chat{
+  height:420px;
+  overflow-y:auto;
+  padding:16px;
+  background:#f8fff9;
+}
+
+.msg{
+  display:flex;
+  margin:10px 0;
+}
+
+.msg.user{justify-content:flex-end}
+
+.bubble{
+  max-width:82%;
+  padding:12px 14px;
+  border-radius:16px;
+  line-height:1.55;
+  font-size:14px;
+  word-wrap:break-word;
+}
+
+.bot .bubble{
+  background:white;
+  border:1px solid #d1fae5;
+  border-top-left-radius:5px;
+}
+
+.user .bubble{
+  background:#16a34a;
+  color:white;
+  border-top-right-radius:5px;
+}
+
+.msg-tools{
+  margin-top:9px;
+  display:flex;
+  gap:6px;
+  flex-wrap:wrap;
+}
+
+.msg-tools button{
+  padding:6px 9px;
+  border-radius:8px;
+  background:#ecfdf5;
+  color:#166534;
+  font-size:12px;
+}
+
+.typing{
+  display:inline-flex;
+  gap:4px;
+  padding:12px 15px;
+  background:white;
+  border:1px solid #d1fae5;
+  border-radius:15px;
+}
+
+.typing i{
+  width:6px;
+  height:6px;
+  background:#16a34a;
+  border-radius:50%;
+  animation:bounce 1s infinite;
+}
+
+.typing i:nth-child(2){animation-delay:.15s}
+.typing i:nth-child(3){animation-delay:.3s}
+
+@keyframes bounce{
+  0%,100%{transform:translateY(0)}
+  50%{transform:translateY(-5px)}
+}
+
+.quick{
+  padding:10px 14px;
+  display:flex;
+  gap:7px;
+  overflow-x:auto;
+  border-top:1px solid #dcfce7;
+}
+
+.quick button{
+  white-space:nowrap;
+  background:#f0fdf4;
+  border:1px solid #bbf7d0;
+  color:#166534;
+  padding:8px 11px;
+  border-radius:20px;
+}
+
+.input-area{
+  padding:13px;
+  display:flex;
+  gap:8px;
+  border-top:1px solid #dcfce7;
+  background:white;
+}
+
+.input-area input{
+  flex:1;
+  min-width:0;
+  border:1px solid #bbf7d0;
+  border-radius:12px;
+  padding:13px;
+  outline:none;
+  font-size:15px;
+}
+
+.input-area input:focus{
+  border-color:#16a34a;
+  box-shadow:0 0 0 3px #dcfce7;
+}
+
+.send{
+  padding:0 17px;
+  border-radius:12px;
+  background:#16a34a;
+  color:white;
+}
+
+.tools{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:12px;
+  margin:15px 0 30px;
+}
+
+.tool{
+  background:white;
+  border:1px solid #bbf7d0;
+  border-radius:16px;
+  padding:18px;
+}
+
+.tool h3{
+  color:#166534;
+  margin-bottom:8px;
+}
+
+.tool p{
+  color:#64748b;
+  font-size:13px;
+  line-height:1.5;
+  margin-bottom:12px;
+}
+
+.tool input{
+  width:100%;
+  padding:10px;
+  margin:5px 0;
+  border:1px solid #bbf7d0;
+  border-radius:9px;
+}
+
+.calc-btn{
+  width:100%;
+  padding:10px;
+  background:#16a34a;
+  color:white;
+  border-radius:9px;
+  margin-top:5px;
+}
+
+.result{
+  margin-top:10px;
+  font-weight:700;
+  color:#166534;
+}
+
+.disclaimer{
+  margin:20px 0;
+  background:#fffbeb;
+  border:1px solid #fde68a;
+  border-radius:13px;
+  padding:13px;
+  color:#713f12;
+  font-size:13px;
+  line-height:1.5;
+}
+
+footer{
+  text-align:center;
+  padding:25px 15px;
+  color:#64748b;
+  font-size:13px;
+}
+
+@media(max-width:800px){
+  .topics{grid-template-columns:repeat(2,1fr)}
+  .tools{grid-template-columns:1fr}
+}
+
+@media(max-width:500px){
+  header{align-items:flex-start}
+  .hero{padding-top:30px}
+  .company-actions{width:100%}
+  .action{flex:1}
+  .chat{height:380px}
+  .bubble{max-width:90%}
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="logo">
+    <span>🌾</span>
+    <div>KisanMitra AI</div>
+  </div>
+
+  <div class="header-actions">
+    <button class="small-btn" onclick="setLang('hi')">हिंदी</button>
+    <button class="small-btn" onclick="setLang('en')">English</button>
+    <button class="small-btn" onclick="clearChat()">🗑️ Clear</button>
+  </div>
+</header>
+
+<section class="hero">
+  <h1>🌾 KisanMitra AI</h1>
+  <p id="tagline">
+    किसान की खेती से जुड़ी जानकारी के लिए आपका डिजिटल साथी
+  </p>
+</section>
+
+<main class="container">
+
+  <section class="company">
+    <div class="company-info">
+      <div class="company-logo">🌾</div>
+      <div>
+        <h3 id="companyName">KisanMitra AI</h3>
+        <p id="companyAddress">Your City, India</p>
+      </div>
+    </div>
+
+    <div class="company-actions">
+      <button class="action" onclick="callCompany()">📞 Call</button>
+      <button class="action" onclick="openWhatsApp()">💬 WhatsApp</button>
+      <button class="action secondary" onclick="showAddress()">📍 Location</button>
+    </div>
+  </section>
+
+  <h2 class="section-title">🌱 किसान सहायता</h2>
+
+  <section class="topics">
+
+    <button class="topic" onclick="quickAsk('मेरी फसल में बीमारी के लक्षण हैं')">
+      <div class="topic-icon">🌿</div>
+      <strong>फसल बीमारी</strong>
+      <small>लक्षण और सुरक्षित सलाह</small>
+    </button>
+
+    <button class="topic" onclick="quickAsk('मौसम के अनुसार खेती की सलाह')">
+      <div class="topic-icon">🌦️</div>
+      <strong>मौसम सलाह</strong>
+      <small>खेती के लिए सामान्य सुझाव</small>
+    </button>
+
+    <button class="topic" onclick="quickAsk('आज का मंडी भाव कैसे देखें')">
+      <div class="topic-icon">📈</div>
+      <strong>मंडी भाव</strong>
+      <small>Live data verification</small>
+    </button>
+
+    <button class="topic" onclick="quickAsk('PM Kisan और सरकारी योजनाओं की जानकारी')">
+      <div class="topic-icon">🏛️</div>
+      <strong>योजनाएं</strong>
+      <small>Official source से verify करें</small>
+    </button>
+
+    <button class="topic" onclick="quickAsk('खाद के बारे में सामान्य जानकारी')">
+      <div class="topic-icon">🌱</div>
+      <strong>खाद</strong>
+      <small>संतुलित पोषण की जानकारी</small>
+    </button>
+
+    <button class="topic" onclick="quickAsk('सिंचाई की सामान्य सलाह')">
+      <div class="topic-icon">💧</div>
+      <strong>सिंचाई</strong>
+      <small>पानी बचाने के तरीके</small>
+    </button>
+
+    <button class="topic" onclick="quickAsk('फसल बीमा की जानकारी')">
+      <div class="topic-icon">🛡️</div>
+      <strong>फसल बीमा</strong>
+      <small>योजना की जानकारी</small>
+    </button>
+
+    <button class="topic" onclick="quickAsk('KCC किसान लोन की जानकारी')">
+      <div class="topic-icon">🏦</div>
+      <strong>KCC / Loan</strong>
+      <small>वित्तीय जानकारी</small>
+    </button>
+
+  </section>
+
+  <section class="chat-card">
+
+    <div class="chat-head">
+      <div>
+        <strong>🤖 KisanMitra Chat</strong><br>
+        <small>Hindi • Hinglish • English</small>
+      </div>
+
+      <button class="small-btn" onclick="stopSpeaking()">🔇 Stop Voice</button>
+    </div>
+
+    <div id="chat" class="chat"></div>
+
+    <div class="quick">
+      <button onclick="quickAsk('फसल में पीले पत्ते क्यों हो रहे हैं?')">🍃 पीले पत्ते</button>
+      <button onclick="quickAsk('आज का मंडी भाव कैसे चेक करें?')">📊 मंडी भाव</button>
+      <button onclick="quickAsk('बारिश से पहले क्या सावधानी रखें?')">🌧️ बारिश</button>
+      <button onclick="quickAsk('KCC क्या है?')">🏦 KCC</button>
+    </div>
+
+    <div class="input-area">
+      <input
+        id="userInput"
+        type="text"
+        maxlength="500"
+        placeholder="अपना सवाल लिखें..."
+        onkeydown="if(event.key==='Enter')sendMsg()"
+        aria-label="अपना सवाल लिखें"
+      >
+      <button class="send" onclick="sendMsg()">Send</button>
+    </div>
+
+  </section>
+
+  <h2 class="section-title">🧮 किसान Tools</h2>
+
+  <section class="tools">
+
+    <div class="tool">
+      <h3>💰 Profit Calculator</h3>
+      <p>फसल की अनुमानित बिक्री और खर्च से सरल profit estimate निकालें।</p>
+
+      <input id="yieldInput" type="number" placeholder="उत्पादन (क्विंटल)">
+      <input id="priceInput" type="number" placeholder="भाव ₹ / क्विंटल">
+      <input id="costInput" type="number" placeholder="कुल खर्च ₹">
+
+      <button class="calc-btn" onclick="calculateProfit()">Calculate</button>
+      <div id="profitResult" class="result"></div>
+    </div>
+
+    <div class="tool">
+      <h3>🌾 Simple Area Tool</h3>
+      <p>एकड़ और हेक्टेयर के बीच अनुमानित conversion करें।</p>
+
+      <input id="acreInput" type="number" step="any" placeholder="एकड़">
+      <button class="calc-btn" onclick="convertArea()">Convert</button>
+
+      <div id="areaResult" class="result"></div>
+    </div>
+
+    <div class="tool">
+      <h3>💧 Irrigation Note</h3>
+      <p>
+        सिंचाई का समय मिट्टी, फसल, मौसम और growth stage पर निर्भर करता है।
+        खेत की स्थिति देखकर निर्णय लें।
+      </p>
+
+      <button class="calc-btn" onclick="irrigationTip()">
+        सलाह देखें
+      </button>
+
+      <div id="waterResult" class="result"></div>
+    </div>
+
+  </section>
+
+  <div class="disclaimer">
+    ⚠️ <strong>महत्वपूर्ण:</strong>
+    KisanMitra AI सामान्य जानकारी देता है। फसल बीमारी की सही पहचान के लिए
+    फसल, अवस्था और लक्षणों की जानकारी जरूरी है। कृषि रसायन या किसी उत्पाद का
+    उपयोग हमेशा उसके वर्तमान लेबल, स्थानीय कृषि विशेषज्ञ/KVK/कृषि विभाग की
+    सलाह और सुरक्षा निर्देशों के अनुसार करें। बिना पुष्टि के रसायनों को
+    मिलाने या मात्रा बदलने से बचें।
+    <br><br>
+    📌 इस API-free version में live weather, live mandi prices और real-time
+    government updates उपलब्ध नहीं हैं।
+  </div>
+
+</main>
+
+<footer>
+  © 2026 KisanMitra AI • किसान के लिए डिजिटल सहायता 🌾
+</footer>
+
+
+<script>
+
+/* =========================
+   COMPANY SETTINGS
+========================= */
+
+const COMPANY = {
+  name: "KisanMitra AI",
+  logo: "🌾",
+  phone: "1800-XXX-XXXX",
+  address: "Your City, India",
+
+  /*
+    अपना WhatsApp number country code के साथ डालें.
+    Example format: 91XXXXXXXXXX
+  */
+  whatsapp: "91XXXXXXXXXX"
+};
+
+
+/* =========================
+   LANGUAGE
+========================= */
+
+const LANG = {
+  hi: {
+    tagline:"किसान की खेती से जुड़ी जानकारी के लिए आपका डिजिटल साथी",
+    placeholder:"अपना सवाल लिखें..."
+  },
+
+  en: {
+    tagline:"Your digital farming companion for practical agricultural information",
+    placeholder:"Type your farming question..."
+  }
+};
+
+let currentLang = "hi";
+
+
+function setLang(lang){
+
+  currentLang = lang;
+
+  document.getElementById("tagline").textContent =
+    LANG[lang].tagline;
+
+  document.getElementById("userInput").placeholder =
+    LANG[lang].placeholder;
+}
+
+
+/* =========================
+   SAFE HTML
+========================= */
+
+function esc(text){
+
+  return String(text).replace(/[&<>"']/g,function(char){
+
+    const map = {
+      "&":"&amp;",
+      "<":"&lt;",
+      ">":"&gt;",
+      '"':"&quot;",
+      "'":"&#39;"
+    };
+
+    return map[char];
+  });
+}
+
+
+/* =========================
+   CHAT
+========================= */
+
+const chat = document.getElementById("chat");
+
+
+function addMsg(text,type="bot",voiceText=null){
+
+  const wrapper = document.createElement("div");
+
+  wrapper.className = "msg " + type;
+
+  const bubble = document.createElement("div");
+
+  bubble.className = "bubble";
+
+  bubble.innerHTML = text;
+
+  wrapper.appendChild(bubble);
+
+  if(type === "bot" && voiceText){
+
+    const tools = document.createElement("div");
+
+    tools.className = "msg-tools";
+
+    const speakButton = document.createElement("button");
+
+    speakButton.textContent = "🔊 सुनाएँ";
+
+    speakButton.onclick = function(){
+      speak(voiceText);
+    };
+
+    tools.appendChild(speakButton);
+
+    wrapper.appendChild(tools);
+  }
+
+  chat.appendChild(wrapper);
+
+  chat.scrollTop = chat.scrollHeight;
+}
+
+
+function addUserMsg(text){
+
+  addMsg(esc(text),"user");
+}
+
+
+function showTyping(){
+
+  const wrapper = document.createElement("div");
+
+  wrapper.className = "msg bot";
+  wrapper.id = "typing";
+
+  wrapper.innerHTML = `
+    <div class="typing">
+      <i></i><i></i><i></i>
+    </div>
+  `;
+
+  chat.appendChild(wrapper);
+  chat.scrollTop = chat.scrollHeight;
+}
+
+
+function removeTyping(){
+
+  const typing = document.getElementById("typing");
+
+  if(typing) typing.remove();
+}
+
+
+/* =========================
+   RESPONSE ENGINE
+========================= */
+
+function getResponse(message){
+
+  const msg = message.toLowerCase().trim();
+
+  /* DISEASE */
+
+  if(
+    msg.includes("बीमारी") ||
+    msg.includes("रोग") ||
+    msg.includes("disease") ||
+    msg.includes("fungus") ||
+    msg.includes("fungal") ||
+    msg.includes("कीड़ा") ||
+    msg.includes("insect") ||
+    msg.includes("pest") ||
+    msg.includes("पीले पत्त")
+  ){
+
+    return {
+      html:`
+        <strong>🌿 फसल बीमारी के लिए पहले पहचान जरूरी है।</strong><br><br>
+
+        कृपया ये जानकारी बताएं:<br>
+        • फसल का नाम<br>
+        • फसल की उम्र / growth stage<br>
+        • समस्या पत्तियों, तने, जड़ या फल में है?<br>
+        • लक्षण कब से दिखाई दे रहे हैं?<br>
+        • खेत में हाल में बारिश/अधिक सिंचाई हुई थी या नहीं?<br><br>
+
+        📷 अगर आपके पास फोटो है तो उसे किसी कृषि विशेषज्ञ/KVK को दिखाकर
+        diagnosis confirm करना बेहतर रहेगा।<br><br>
+
+        ⚠️ बिना पहचान के pesticide/fungicide चुनने या अलग-अलग chemicals
+        मिलाने से बचें। किसी product का उपयोग हो तो उसके वर्तमान label और
+        स्थानीय कृषि सलाह का पालन करें।
+      `,
+      voice:
+      "फसल बीमारी में पहले सही पहचान जरूरी है। फसल का नाम, उम्र, लक्षण और समस्या कब से है यह जानकारी दें। बिना पहचान के कृषि रसायन का उपयोग न करें।"
+    };
+  }
+
+
+  /* WEATHER */
+
+  if(
+    msg.includes("मौसम") ||
+    msg.includes("weather") ||
+    msg.includes("बारिश") ||
+    msg.includes("rain")
+  ){
+
+    return {
+      html:`
+        <strong>🌦️ मौसम आधारित खेती सलाह</strong><br><br>
+
+        API के बिना यह वेबसाइट live weather नहीं दिखाती।
+        खेत में काम तय करने से पहले अपने क्षेत्र का current forecast
+        जरूर verify करें।<br><br>
+
+        सामान्य सावधानियां:<br>
+        • तेज बारिश की संभावना हो तो खेत की drainage देखें।<br>
+        • कटाई के आसपास बारिश का forecast विशेष रूप से देखें।<br>
+        • सिंचाई से पहले मिट्टी की नमी जांचें।<br>
+        • तेज हवा/तूफान की चेतावनी में खेत में अनावश्यक काम न करें।
+      `,
+      voice:
+      "इस version में live weather उपलब्ध नहीं है। खेती का निर्णय लेने से पहले अपने क्षेत्र का current forecast जरूर देखें।"
+    };
+  }
+
+
+  /* MANDI */
+
+  if(
+    msg.includes("मंडी") ||
+    msg.includes("भाव") ||
+    msg.includes("mandi") ||
+    msg.includes("price") ||
+    msg.includes("rate")
+  ){
+
+    return {
+      html:`
+        <strong>📈 मंडी भाव</strong><br><br>
+
+        इस API-free version में आज का live mandi price उपलब्ध नहीं है।<br><br>
+
+        किसी भी खरीद-बिक्री का निर्णय लेने से पहले अपने नजदीकी मंडी
+        का current भाव और गुणवत्ता/ग्रेड के अनुसार rate verify करें।<br><br>
+
+        💡 आप चाहें तो मुझे <strong>फसल का नाम + मंडी का नाम</strong>
+        लिखकर बताएं। मैं आपको यह बता सकता हूँ कि किन बातों को check करना चाहिए।
+      `,
+      voice:
+      "इस version में live मंडी भाव उपलब्ध नहीं है। खरीद या बिक्री से पहले स्थानीय मंडी का current rate और quality grade जरूर verify करें।"
+    };
+  }
+
+
+  /* GOVERNMENT SCHEMES */
+
+  if(
+    msg.includes("pm kisan") ||
+    msg.includes("पीएम किसान") ||
+    msg.includes("योजना") ||
+    msg.includes("scheme") ||
+    msg.includes("subsidy") ||
+    msg.includes("सब्सिडी")
+  ){
+
+    return {
+      html:`
+        <strong>🏛️ सरकारी योजना</strong><br><br>
+
+        सरकारी योजनाओं की eligibility, payment dates, subsidy और rules
+        समय के साथ बदल सकते हैं। इसलिए current जानकारी के लिए
+        संबंधित official government portal या कृषि विभाग से verify करें।<br><br>
+
+        आप योजना का <strong>पूरा नाम</strong> लिखें, जैसे:
+        PM-KISAN, PMFBY, KCC आदि। मैं आपको उसकी सामान्य जानकारी
+        और किन documents/conditions को check करना है बता सकता हूँ।
+      `,
+      voice:
+      "सरकारी योजनाओं के नियम समय के साथ बदल सकते हैं। योजना का पूरा नाम बताएं ताकि उसकी सामान्य जानकारी समझाई जा सके।"
+    };
+  }
+
+
+  /* FERTILIZER */
+
+  if(
+    msg.includes("खाद") ||
+    msg.includes("fertilizer") ||
+    msg.includes("urea") ||
+    msg.includes("dap") ||
+    msg.includes("npk")
+  ){
+
+    return {
+      html:`
+        <strong>🌱 खाद और पोषण</strong><br><br>
+
+        सही fertilizer recommendation फसल, मिट्टी की जांच, growth stage
+        और पहले से उपलब्ध nutrients पर निर्भर करती है।<br><br>
+
+        बेहतर निर्णय के लिए:<br>
+        • Soil test को प्राथमिकता दें।<br>
+        • केवल जरूरत के अनुसार nutrient दें।<br>
+        • अलग-अलग products को बिना सलाह के mix न करें।<br>
+        • स्थानीय कृषि विशेषज्ञ/KVK की recommendation देखें।<br><br>
+
+        अगर आप <strong>फसल + मिट्टी का प्रकार + growth stage</strong>
+        बताएं, तो मैं आपको सामान्य nutrient-planning समझा सकता हूँ।
+      `,
+      voice:
+      "सही fertilizer recommendation फसल, soil test और growth stage पर निर्भर करती है। Soil test को प्राथमिकता दें और स्थानीय कृषि सलाह लें।"
+    };
+  }
+
+
+  /* IRRIGATION */
+
+  if(
+    msg.includes("सिंचाई") ||
+    msg.includes("पानी") ||
+    msg.includes("irrigation") ||
+    msg.includes("water")
+  ){
+
+    return {
+      html:`
+        <strong>💧 सिंचाई सलाह</strong><br><br>
+
+        सिंचाई का सही समय मिट्टी, फसल, मौसम और growth stage पर निर्भर करता है।<br><br>
+
+        सामान्य तरीके:<br>
+        • मिट्टी की नमी जांचें।<br>
+        • जरूरत से ज्यादा पानी देने से बचें।<br>
+        • खेत में drainage अच्छी रखें।<br>
+        • Drip/sprinkler जैसे methods उपलब्ध हों तो स्थानीय परिस्थितियों
+          के अनुसार उनकी उपयोगिता देखें।
+      `,
+      voice:
+      "सिंचाई का समय मिट्टी, फसल, मौसम और growth stage पर निर्भर करता है। मिट्टी की नमी देखकर जरूरत के अनुसार पानी दें।"
+    };
+  }
+
+
+  /* INSURANCE */
+
+  if(
+    msg.includes("बीमा") ||
+    msg.includes("bima") ||
+    msg.includes("insurance") ||
+    msg.includes("pmfby")
+  ){
+
+    return {
+      html:`
+        <strong>🛡️ फसल बीमा</strong><br><br>
+
+        फसल बीमा में eligibility, notified crops, area, premium,
+        claim process और deadlines योजना/क्षेत्र के अनुसार अलग हो सकते हैं।<br><br>
+
+        इसलिए current notification और स्थानीय कृषि/बीमा अधिकारी
+        से details verify करें।<br><br>
+
+        अगर आप अपना <strong>राज्य + फसल</strong> बताएं तो मैं बता सकता हूँ
+        कि किन details को verify करना जरूरी है।
+      `,
+      voice:
+      "फसल बीमा में eligibility और claim rules क्षेत्र और योजना के अनुसार बदल सकते हैं। current notification जरूर verify करें।"
+    };
+  }
+
+
+  /* LOAN */
+
+  if(
+    msg.includes("loan") ||
+    msg.includes("लोन") ||
+    msg.includes("kcc") ||
+    msg.includes("किसान क्रेडिट")
+  ){
+
+    return {
+      html:`
+        <strong>🏦 KCC / किसान Loan</strong><br><br>
+
+        KCC और agricultural loans में interest rate, limit, collateral,
+        eligibility और bank rules अलग हो सकते हैं।<br><br>
+
+        आवेदन से पहले अपने bank से current terms और सभी charges
+        लिखित रूप में समझ लें।<br><br>
+
+        📌 किसी एक bank को "सबसे सस्ता" मानने से पहले current
+        interest rate और applicable charges compare करें।
+      `,
+      voice:
+      "KCC और agricultural loans में bank के अनुसार terms अलग हो सकते हैं। आवेदन से पहले current interest rate और charges verify करें।"
+    };
+  }
+
+
+  /* HELLO */
+
+  if(
+    msg.includes("hello") ||
+    msg.includes("hi") ||
+    msg.includes("नमस्ते") ||
+    msg.includes("namaste")
+  ){
+
+    return {
+      html:`
+        <strong>नमस्ते किसान भाई/बहन! 🌾</strong><br><br>
+        मैं KisanMitra AI हूँ। आप फसल, बीमारी, मौसम, मंडी,
+        खाद, सिंचाई, बीमा या KCC के बारे में पूछ सकते हैं।
+      `,
+      voice:
+      "नमस्ते किसान भाई या बहन। आप फसल, बीमारी, मौसम, मंडी, खाद, सिंचाई, बीमा या KCC के बारे में पूछ सकते हैं।"
+    };
+  }
+
+
+  /* FALLBACK */
+
+  return {
+    html:`
+      मैंने आपका सवाल समझने की कोशिश की। 🌾<br><br>
+
+      कृपया सवाल को थोड़ा और specific लिखें। उदाहरण:<br>
+      • मेरी गेहूं की फसल में पीले पत्ते हैं<br>
+      • आज मंडी भाव कैसे देखें?<br>
+      • बारिश से पहले क्या सावधानी रखें?<br>
+      • KCC क्या है?<br>
+      • खाद की planning कैसे करें?
+    `,
+    voice:
+    "कृपया सवाल को थोड़ा और specific लिखें। आप फसल, बीमारी, मौसम, मंडी, खाद, सिंचाई, बीमा या KCC के बारे में पूछ सकते हैं।"
+  };
+}
+
+
+/* =========================
+   SEND MESSAGE
+========================= */
+
+function sendMsg(){
+
+  const input = document.getElementById("userInput");
+
+  const message = input.value.trim();
+
+  if(!message) return;
+
+  addUserMsg(message);
+
+  input.value = "";
+
+  showTyping();
+
+  setTimeout(function(){
+
+    removeTyping();
+
+    const response = getResponse(message);
+
+    addMsg(
+      response.html,
+      "bot",
+      response.voice
+    );
+
+  },650);
+}
+
+
+function quickAsk(text){
+
+  document.getElementById("userInput").value = text;
+
+  sendMsg();
+}
+
+
+/* =========================
+   CLEAR CHAT
+========================= */
+
+function clearChat(){
+
+  chat.innerHTML = "";
+
+  welcomeMessage();
+}
+
+
+function welcomeMessage(){
+
+  addMsg(`
+    <strong>नमस्ते! 🌾</strong><br><br>
+    KisanMitra AI में आपका स्वागत है।<br>
+    खेती से जुड़ा अपना सवाल नीचे लिखें।
+  `,"bot",
+  "नमस्ते। KisanMitra AI में आपका स्वागत है। खेती से जुड़ा अपना सवाल नीचे लिखें।");
+}
+
+
+/* =========================
+   VOICE
+========================= */
+
+function speak(text){
+
+  if(!("speechSynthesis" in window)){
+    alert("आपके browser में voice support उपलब्ध नहीं है।");
+    return;
+  }
+
+  speechSynthesis.cancel();
+
+  const utterance = new SpeechSynthesisUtterance(text);
+
+  utterance.lang = currentLang === "hi" ? "hi-IN" : "en-IN";
+
+  utterance.rate = .95;
+  utterance.pitch = 1;
+
+  speechSynthesis.speak(utterance);
+}
+
+
+function stopSpeaking(){
+
+  if("speechSynthesis" in window){
+    speechSynthesis.cancel();
+  }
+}
+
+
+/* =========================
+   COMPANY ACTIONS
+========================= */
+
+function callCompany(){
+
+  if(
+    !COMPANY.phone ||
+    COMPANY.phone.includes("XXX")
+  ){
+    alert("COMPANY.phone में अपना real helpline number डालें।");
+    return;
+  }
+
+  window.location.href = "tel:" + COMPANY.phone;
+}
+
+
+function openWhatsApp(){
+
+  if(
+    !COMPANY.whatsapp ||
+    COMPANY.whatsapp.includes("X")
+  ){
+    alert("COMPANY.whatsapp में अपना WhatsApp number डालें।");
+    return;
+  }
+
+  const text =
+    "Namaste, mujhe KisanMitra AI se farming guidance chahiye.";
+
+  const url =
+    "https://wa.me/" +
+    COMPANY.whatsapp +
+    "?text=" +
+    encodeURIComponent(text);
+
+  window.open(url,"_blank");
+}
+
+
+function showAddress(){
+
+  alert(
+    COMPANY.name +
+    "\\n\\nAddress: " +
+    COMPANY.address
+  );
+}
+
+
+/* =========================
+   CALCULATORS
+========================= */
+
+function calculateProfit(){
+
+  const yieldQty =
+    Number(document.getElementById("yieldInput").value);
+
+  const price =
+    Number(document.getElementById("priceInput").value);
+
+  const cost =
+    Number(document.getElementById("costInput").value);
+
+  if(
+    !Number.isFinite(yieldQty) ||
+    !Number.isFinite(price) ||
+    !Number.isFinite(cost) ||
+    yieldQty < 0 ||
+    price < 0 ||
+    cost < 0
+  ){
+
+    document.getElementById("profitResult").textContent =
+      "कृपया valid numbers डालें।";
+
+    return;
+  }
+
+  const revenue = yieldQty * price;
+  const profit = revenue - cost;
+
+  document.getElementById("profitResult").innerHTML =
+    "अनुमानित बिक्री: ₹" +
+    revenue.toLocaleString("en-IN") +
+    "<br>अनुमानित Profit/Loss: ₹" +
+    profit.toLocaleString("en-IN");
+}
+
+
+function convertArea(){
+
+  const acre =
+    Number(document.getElementById("acreInput").value);
+
+  if(!Number.isFinite(acre) || acre < 0){
+
+    document.getElementById("areaResult").textContent =
+      "Valid area डालें।";
+
+    return;
+  }
+
+  /*
+    Approximate conversion:
+    1 acre = 0.404686 hectare
+  */
+
+  const hectare = acre * 0.404686;
+
+  document.getElementById("areaResult").textContent =
+    hectare.toFixed(4) + " hectare";
+}
+
+
+function irrigationTip(){
+
+  document.getElementById("waterResult").innerHTML =
+    "🌱 मिट्टी की नमी + मौसम + फसल की अवस्था देखकर सिंचाई करें।";
+}
+
+
+/* =========================
+   START
+========================= */
+
+document.getElementById("companyName").textContent =
+  COMPANY.name;
+
+document.getElementById("companyAddress").textContent =
+  COMPANY.address;
+
+setLang("hi");
+
+welcomeMessage();
+
+</script>
+
+</body>
+  </html>
